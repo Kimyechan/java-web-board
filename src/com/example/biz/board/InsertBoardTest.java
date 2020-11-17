@@ -1,9 +1,6 @@
 package com.example.biz.board;
 
-import java.sql.Connection;
-import java.sql.DriverManager; // 각 DB마다 구현
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 /**
  * connection - 고속도로
@@ -12,8 +9,21 @@ import java.sql.Statement;
  */
 public class InsertBoardTest {
     public static void main(String[] args) {
-        Connection conn = null;
-        Statement stmt = null;
+        // 1. 글 등록 기능 처리
+        BoardDAO boardDAO = new BoardDAO();
+
+        BoardVO vo = new BoardVO();
+        vo.setTitle("VO 테스트");
+        vo.setWriter("테스터");
+        vo.setContent("VO 내용 ..........");
+        boardDAO.insertBoard(vo);
+
+        // 2. 글 목록 검색 기능 처리
+        boardDAO.getBoardList();
+
+      /*  Connection conn = null;
+//        Statement stmt = null;
+        PreparedStatement stmt = null;
 
         try {
             // 1. 드라이버 객체를 메모리에 로딩한다.
@@ -25,12 +35,19 @@ public class InsertBoardTest {
             conn = DriverManager.getConnection(url, "sa", "");
 
             // 3. SQL 전달 객체 (Statement)를 생성한다
-            stmt = conn.createStatement();
+            String sql = "insert into board(seq, title, writer, content) values((select nvl(max(seq), 0) + 1 from board), ?, ?, ? )";
+            stmt = conn.prepareStatement(sql);
+
+            // 파라미터 셋팅
+            stmt.setString(1, "JDBC 제목");
+            stmt.setString(2, "테스터");
+            stmt.setString(3, "JDBC 내용..............");
 
             // 4. SQL을 전송한다.
-            // max(seq) -> null, nvl(max(seq), 0) -> null이면 0으로 바꿔라
-            String sql = "insert into board(seq, title, writer, content) values((select nvl(max(seq), 0) + 1 from board), '테스트 제목', '테스트', '테스트 내용...' )";
-            int cnt = stmt.executeUpdate(sql);
+//            // max(seq) -> null, nvl(max(seq), 0) -> null이면 0으로 바꿔라
+//            String sql = "insert into board(seq, title, writer, content) values((select nvl(max(seq), 0) + 1 from board), '테스트 제목', '테스트', '테스트 내용...' )";
+//            int cnt = stmt.executeUpdate(sql);
+            int cnt = stmt.executeUpdate();
             System.out.println(cnt + " 건의 데이터 처리 성공");
         } catch (Exception e) {
             e.printStackTrace();
@@ -54,6 +71,6 @@ public class InsertBoardTest {
             } finally {
                 conn = null;
             }
-        }
+        }*/
     }
 }

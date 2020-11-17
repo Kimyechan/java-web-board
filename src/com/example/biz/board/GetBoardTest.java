@@ -9,7 +9,7 @@ import java.sql.*;
  */
 public class GetBoardTest {
     public static void main(String[] args) {
-        Connection conn = null;
+        /*Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
 
@@ -72,6 +72,15 @@ public class GetBoardTest {
             } finally {
                 conn = null;
             }
-        }
+        }*/
+        BoardDAO boardDAO = new BoardDAO();
+        BoardVO vo = new BoardVO();
+        vo.setSeq(5);
+        BoardVO board = boardDAO.getBoard(vo);
+        boardDAO.updateCount(board);
+        System.out.println("게시글 상세정보");
+        System.out.println(board);
+        // 2. 글 목록 검색 기능 처리
+        boardDAO.getBoard(vo);
     }
 }

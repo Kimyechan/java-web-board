@@ -12,7 +12,7 @@ import java.sql.Statement;
  */
 public class UpdateBoardTest {
     public static void main(String[] args) {
-        Connection conn = null;
+        /*Connection conn = null;
         Statement stmt = null;
 
         try {
@@ -53,6 +53,17 @@ public class UpdateBoardTest {
             } finally {
                 conn = null;
             }
-        }
+        }*/
+
+        // 1. 글 등록 기능 처리
+        BoardDAO boardDAO = new BoardDAO();
+        BoardVO vo = new BoardVO();
+        vo.setTitle("----수정제목");
+        vo.setContent("---- 수정 내용");
+        vo.setSeq(1);
+        boardDAO.updateBoard(vo);
+
+        // 2. 글 상세 조회 기능 처리
+        boardDAO.getBoard(vo);
     }
 }

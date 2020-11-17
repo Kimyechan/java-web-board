@@ -1,6 +1,7 @@
 package com.example.biz.board;
 
 import java.sql.*;
+import java.util.List;
 
 /**
  * connection - 고속도로
@@ -9,7 +10,7 @@ import java.sql.*;
  */
 public class GetBoardListTest {
     public static void main(String[] args) {
-        Connection conn = null;
+        /*Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
 
@@ -80,6 +81,20 @@ public class GetBoardListTest {
             } finally {
                 conn = null;
             }
+        }*/
+        BoardDAO boardDAO = new BoardDAO();
+
+        // 2. 글 목록 검색 기능 처리
+        // getBoardList() 메소드가 리턴한 글 목록을 원하는 형태로 사용된다.
+        List<BoardVO> boardList = boardDAO.getBoardList();
+
+        // 1. CASE
+        System.out.println("[ BOARD LIST ]");
+        for (BoardVO board : boardList) {
+            System.out.println(board);
         }
+
+        // 2. CASE
+        System.out.println("검색된 게시글 수" + boardList.size());
     }
 }

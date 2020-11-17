@@ -12,7 +12,7 @@ import java.sql.Statement;
  */
 public class DeleteBoardTest {
     public static void main(String[] args) {
-        Connection conn = null;
+        /*Connection conn = null;
         Statement stmt = null;
 
         try {
@@ -53,6 +53,14 @@ public class DeleteBoardTest {
             } finally {
                 conn = null;
             }
-        }
+        }*/
+        // 1. 글 등록 기능 처리
+        BoardDAO boardDAO = new BoardDAO();
+        BoardVO vo = new BoardVO();
+        vo.setSeq(1);
+        boardDAO.deleteBoard(vo);
+
+        // 2. 글 목록 검색 기능 처리
+        boardDAO.getBoardList();
     }
 }
