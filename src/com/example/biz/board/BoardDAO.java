@@ -19,6 +19,7 @@ public class BoardDAO {
     private static final String BOARD_INSERT = "insert into board(seq, title, writer, content) values((select nvl(max(seq), 0) + 1 from board), ?, ?, ? )";
     private static final String BOARD_UPDATE = "update board set title = ?, content = ? where seq = ?";
     private static final String BOARD_UPDATE_COUNT = "update board set cnt = ? where seq = ?";
+    private static final String BOARD_UPDATE_CNT = "update board set cnt = cnt + 1 where seq = ?";
     private static final String BOARD_DELETE = "delete from board where seq = ?";
     private static final String BOARD_GET = "select * from board desc where seq = ?";
     private static final String BOARD_LIST = "select * from board order by seq desc";
@@ -104,7 +105,10 @@ public class BoardDAO {
                         .cnt(rs.getInt("CNT"))
                         .build();
 
-
+                // 검색 결과가 존재하는 경우 조회수를 증가시킨다
+                stmt= conn.prepareStatement(BOARD_UPDATE_CNT);
+                stmt.setInt(1, vo.getSeq());
+                stmt.executeQuery();
             }
         } catch (Exception e) {
             e.printStackTrace();
